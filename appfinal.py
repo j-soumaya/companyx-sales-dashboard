@@ -183,7 +183,9 @@ if authentication_status:
 
 
     # SALES BY YEAR [BAR CHART]
-    sales_by_year = df_selection.groupby(by=["Year"]).sum()[["Net Sales"]]
+    #sales_by_year = df_selection.groupby(by=["Year"]).sum()[["Net Sales"]]
+    sales_by_year = df_selection.groupby(by=["Year"]).agg({"Net Sales": "sum"})
+
     fig_yearly_sales = px.bar(
         sales_by_year,
         x=sales_by_year.index,
@@ -203,7 +205,8 @@ if authentication_status:
     )
 
     # SALES PER PRODUCT LINE[BAR CHART]
-    sales_per_product_line = df_selection.groupby(by=["Product Line"]).sum()[["Net Sales"]]
+    #sales_per_product_line = df_selection.groupby(by=["Product Line"]).sum()[["Net Sales"]]
+    sales_per_product_line = df_selection.groupby(by=["Product Line"]).agg({"Net Sales": "sum"})
 
     top_5 = sales_per_product_line.sort_values("Net Sales", ascending=False).iloc[:5]
     others = sales_per_product_line.loc[~sales_per_product_line.index.isin(top_5.index)]
@@ -365,7 +368,8 @@ if authentication_status:
 
     # LOCAL SALES BY COMPANY [BAR CHART]
     local_sales_by_company = (
-        df_local_init.groupby(by=["Company Name"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        #df_local_init.groupby(by=["Company Name"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        df_local_init.groupby(by=["Company Name"]).agg({"Net Sales": "sum"}).sort_values(by="Net Sales")
     )
     fig_local_company_sales = px.bar(
         local_sales_by_company,
@@ -387,8 +391,9 @@ if authentication_status:
     )
 
     #LOCAL SALES PER GAMME [PIE CHART]
-    local_sales_per_gamme = df_local_init.groupby(by=["Product Line"]).sum()[["Net Sales"]]
-
+    #local_sales_per_gamme = df_local_init.groupby(by=["Product Line"]).sum()[["Net Sales"]]
+    local_sales_per_gamme = df_local_init.groupby(by=["Product Line"]).agg({"Net Sales": "sum"})
+    
     top_5 = local_sales_per_gamme.sort_values("Net Sales", ascending=False).iloc[:5]
     others = local_sales_per_gamme.loc[~local_sales_per_gamme.index.isin(top_5.index)]
     other_sum = others["Net Sales"].sum()
@@ -423,6 +428,7 @@ if authentication_status:
 
     # original
     df_export = df_export_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
+   
     
     #git
     #df_export = df_export_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
@@ -450,7 +456,9 @@ if authentication_status:
 
     # EXPORT SALES BY COMPANY [BAR CHART]
     export_sales_by_company = (
-        df_export_init.groupby(by=["Company Name"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        #df_export_init.groupby(by=["Company Name"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        df_export_init.groupby(by=["Company Name"]).agg({"Net Sales": "sum"}).sort_values(by="Net Sales")
+
     )
 
     fig_export_company_sales = px.pie(
@@ -465,8 +473,10 @@ if authentication_status:
 
     # EXPORT SALES BY ACTIVITY [BAR CHART]
     export_sales_by_activity = (
-        df_export_init.groupby(by=["Company Activity"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        #df_export_init.groupby(by=["Company Activity"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        df_export_init.groupby(by=["Company Activity"]).agg({"Net Sales": "sum"}).sort_values(by="Net Sales")
     )
+    
     fig_export_company_sales_activity = px.bar(
         export_sales_by_activity,
         x=export_sales_by_activity.index,
@@ -489,7 +499,9 @@ if authentication_status:
     fig_export_company_sales_activity.update_xaxes(categoryorder="total descending")
 
     #EXPORT SALES PER GAMME [PIE CHART]
-    export_sales_per_gamme = df_export_init.groupby(by=["Product Line"]).sum()[["Net Sales"]]
+    #export_sales_per_gamme = df_export_init.groupby(by=["Product Line"]).sum()[["Net Sales"]]
+    export_sales_per_gamme = df_export_init.groupby(by=["Product Line"]).agg({"Net Sales": "sum"})
+    
 
     top_5 = export_sales_per_gamme.sort_values("Net Sales", ascending=False).iloc[:5]
     others = export_sales_per_gamme.loc[~export_sales_per_gamme.index.isin(top_5.index)]
@@ -518,7 +530,9 @@ if authentication_status:
     )
 
     #EXPORT SALES PER PRODUCT RANGE [PIE CHART]
-    export_sales_per_range = df_export_init.groupby(by=["Product Range"]).sum()[["Net Sales"]]
+    #export_sales_per_range = df_export_init.groupby(by=["Product Range"]).sum()[["Net Sales"]]
+    export_sales_per_range = df_export_init.groupby(by=["Product Range"]).agg({"Net Sales": "sum"})
+    
 
     top_5 = export_sales_per_range.sort_values("Net Sales", ascending=False).iloc[:5]
     others = export_sales_per_range.loc[~export_sales_per_range.index.isin(top_5.index)]
