@@ -157,8 +157,8 @@ if authentication_status:
 
     # SALES BY COMPANY [BAR CHART]
     sales_by_company = (
-        #df_selection.groupby(by=["Company Name"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
-        df_selection.groupby(by=["Company Name"]).agg({"Net Sales": lambda x: np.sum(x, dtype=object)}).sort_values(by="Net Sales")
+        df_selection.groupby(by=["Company Name"]).sum()[["Net Sales"]].sort_values(by="Net Sales")
+        #df_selection.groupby(by=["Company Name"]).agg({"Net Sales": lambda x: np.sum(x, dtype=object)}).sort_values(by="Net Sales")
 
     )
     fig_company_sales = px.bar(
