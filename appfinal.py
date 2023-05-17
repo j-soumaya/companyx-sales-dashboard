@@ -331,9 +331,13 @@ if authentication_status:
 
     # Convert Invoice Date column to datetime and extract month-year as a new column
     df_local_init["month-year"] = pd.to_datetime(df_local_init["Invoice Date"], format="%d/%m/%Y").dt.strftime("%B %Y")
-
+    
     # Group the data by month-year and sum the Net Sales column
-    df_local = df_local_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
+    #df_local = df_local_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
+    
+    #git
+    df_local = df_local_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
+
 
     # Create a list of all the month-year values in chronological order
     month_year_list = sorted(df_local["month-year"], key=lambda x: pd.to_datetime(x, format="%B %Y"))
@@ -416,7 +420,10 @@ if authentication_status:
     df_export_init["month-year"] = pd.to_datetime(df_export_init["Invoice Date"], format="%d/%m/%Y").dt.strftime("%B %Y")
 
     # Group the data by month-year and sum the Net Sales column
-    df_export = df_export_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
+    #df_export = df_export_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
+    
+    #git
+    df_export = df_export_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
 
     # Create a list of all the month-year values in chronological order
     month_year_list = sorted(df_export["month-year"], key=lambda x: pd.to_datetime(x, format="%B %Y"))
