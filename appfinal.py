@@ -1,7 +1,8 @@
 import pickle
 from pathlib import Path
 
-import pandas as pd  
+import pandas as pd 
+import numpy as np
 import plotly.express as px 
 import streamlit as st  
 from PIL import Image
