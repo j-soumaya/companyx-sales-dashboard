@@ -327,39 +327,37 @@ if authentication_status:
 
     #LOCAL SALES PER MONTH AND YEAR [BARCHART]
 
-    # df_local_init = df_selection[df_selection["Market"] == "Local"]
-
     # Convert Invoice Date column to datetime and extract month-year as a new column
-    df_local_init["month-year"] = pd.to_datetime(df_local_init["Invoice Date"], format="%d/%m/%Y").dt.strftime("%B %Y")
+    #df_local_init["month-year"] = pd.to_datetime(df_local_init["Invoice Date"], format="%d/%m/%Y").dt.strftime("%B %Y")
     
-    # Group the data by month-year and sum the Net Sales column
+    # original
     #df_local = df_local_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
     
     #git
-    df_local = df_local_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
+    #df_local = df_local_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
 
 
     # Create a list of all the month-year values in chronological order
-    month_year_list = sorted(df_local["month-year"], key=lambda x: pd.to_datetime(x, format="%B %Y"))
-    df_local_sorted = df_local.sort_values("month-year", key=lambda x: x.map({month_year_list[i]: i for i in range(len(month_year_list))}))
+    #month_year_list = sorted(df_local["month-year"], key=lambda x: pd.to_datetime(x, format="%B %Y"))
+    #df_local_sorted = df_local.sort_values("month-year", key=lambda x: x.map({month_year_list[i]: i for i in range(len(month_year_list))}))
 
 
     # Create the bar chart using Plotly Express
-    fig_local_sales = px.line(
-        df_local_sorted,
-        x="month-year",
-        y="Net Sales",
-        color_discrete_sequence=["#0083B8"] * len(df_local),
-        template="plotly_white",
-        category_orders={"month-year": month_year_list},
-        labels={"month-year": "Date", "Net Sales": "Sales"}
-    )
+#     fig_local_sales = px.line(
+#         df_local_sorted,
+#         x="month-year",
+#         y="Net Sales",
+#         color_discrete_sequence=["#0083B8"] * len(df_local),
+#         template="plotly_white",
+#         category_orders={"month-year": month_year_list},
+#         labels={"month-year": "Date", "Net Sales": "Sales"}
+#     )
 
 
-    fig_local_sales.update_layout(
-        title="<b>Local Sales per Month and Year</b>",
-        width=1200
-    )
+#     fig_local_sales.update_layout(
+#         title="<b>Local Sales per Month and Year</b>",
+#         width=1200
+#     )
 
     # LOCAL SALES BY COMPANY [BAR CHART]
     local_sales_by_company = (
@@ -417,34 +415,34 @@ if authentication_status:
     df_export_init = df_selection[df_selection["Market"] == "Export"]
 
     # Convert Invoice Date column to datetime and extract month-year as a new column
-    df_export_init["month-year"] = pd.to_datetime(df_export_init["Invoice Date"], format="%d/%m/%Y").dt.strftime("%B %Y")
+    #df_export_init["month-year"] = pd.to_datetime(df_export_init["Invoice Date"], format="%d/%m/%Y").dt.strftime("%B %Y")
 
-    # Group the data by month-year and sum the Net Sales column
+    # original
     #df_export = df_export_init.groupby("month-year").agg({"Net Sales": "sum"}).reset_index()
     
     #git
-    df_export = df_export_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
+    #df_export = df_export_init.groupby("month-year").agg(numeric_only=True, Net_Sales=("Net Sales", "sum")).reset_index()
 
     # Create a list of all the month-year values in chronological order
-    month_year_list = sorted(df_export["month-year"], key=lambda x: pd.to_datetime(x, format="%B %Y"))
-    df_export_sorted = df_export.sort_values("month-year", key=lambda x: x.map({month_year_list[i]: i for i in range(len(month_year_list))}))
+    #month_year_list = sorted(df_export["month-year"], key=lambda x: pd.to_datetime(x, format="%B %Y"))
+    #df_export_sorted = df_export.sort_values("month-year", key=lambda x: x.map({month_year_list[i]: i for i in range(len(month_year_list))}))
 
 
     # Create the bar chart using Plotly Express
-    fig_export_sales = px.line(
-        df_export_sorted,
-        x="month-year",
-        y="Net Sales",
-        color_discrete_sequence=["#0083B8"] * len(df_export),
-        template="plotly_white",
-        category_orders={"month-year": month_year_list},
-        labels={"month-year": "Date", "Net Sales": "Sales"}
-    )
+#     fig_export_sales = px.line(
+#         df_export_sorted,
+#         x="month-year",
+#         y="Net Sales",
+#         color_discrete_sequence=["#0083B8"] * len(df_export),
+#         template="plotly_white",
+#         category_orders={"month-year": month_year_list},
+#         labels={"month-year": "Date", "Net Sales": "Sales"}
+#     )
 
-    fig_export_sales.update_layout(
-        title="<b>Export Sales per Month and Year</b>",
-        width=1200
-    )
+#     fig_export_sales.update_layout(
+#         title="<b>Export Sales per Month and Year</b>",
+#         width=1200
+#     )
 
     # EXPORT SALES BY COMPANY [BAR CHART]
     export_sales_by_company = (
@@ -596,14 +594,14 @@ if authentication_status:
 
 
     with tab2:
-        st.plotly_chart(fig_local_sales)
+        #st.plotly_chart(fig_local_sales)
         left_column, middle_column, right_column = st.columns(3)
         left_column.plotly_chart(fig_local_company_sales, use_container_width=True)
         middle_column.plotly_chart(fig_local_sales_per_gamme, use_container_width=True)
         right_column.plotly_chart(fig_sales_per_city, use_container_width=True)
 
     with tab3:
-        st.plotly_chart(fig_export_sales)
+        #st.plotly_chart(fig_export_sales)
         left_column, middle_column, right_column = st.columns(3)
         left_column.plotly_chart(fig_export_sales_per_range, use_container_width=True)
         middle_column.plotly_chart(fig_export_company_sales_activity, use_container_width=True)
